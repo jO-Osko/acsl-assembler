@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ACSL assembler simulator</title>
+    <meta name="author" content="j00sko">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <style>
+
+    .Header_navigation{
+            padding: 0px 30px;
+      display: flex;
+      margin: 20px 0px;
+      gap:20px;
+    }
+
+    .Header_navigation a{
+      display: inline !important;
+      flex-grow: 1;
+    }
+
+    .Header_navItem {
+    }
+      .Header_navItem button{
+    padding: 6px 12px;
+        height: 52px;
+      background-color: white;
+        align-items: flex-start;
+        text-align: center;
+        width: 100%;
+        font-size: 20px;
+    }
+
+  </style>
+
+  </head>
+  <body style="color:#212529; background-color: #f3f3f3;">
+    <div id="elm-main"></div>
+    <script type="text/javascript" src="js/app/app.js"></script>
+    <script type="text/javascript" src="js/elm_embed.js"></script>
+    <script type="text/javascript">
+        init(Elm);
+    </script>
+  </body>
+</html>
