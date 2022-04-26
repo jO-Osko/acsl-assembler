@@ -10632,8 +10632,8 @@ var $author$project$App$liftOp = F3(
 	});
 var $author$project$App$liftOpB = F4(
 	function (op, _v0, _v1, label) {
-		var acc = _v0.a;
-		var a = _v1.a;
+		var a = _v0.a;
+		var acc = _v1.a;
 		return A2(op, acc, a) ? $elm$core$Maybe$Just(label) : $elm$core$Maybe$Nothing;
 	});
 var $author$project$App$parseOpcode = function (word) {
