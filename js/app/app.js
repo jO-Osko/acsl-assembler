@@ -10620,6 +10620,7 @@ var $author$project$App$Operator = function (a) {
 };
 var $author$project$App$Print = {$: 'Print'};
 var $author$project$App$Read = {$: 'Read'};
+var $author$project$App$Skip = {$: 'Skip'};
 var $author$project$App$Store = {$: 'Store'};
 var $elm$core$Basics$pow = _Basics_pow;
 var $author$project$App$limit = A2($elm$core$Basics$pow, 10, 6);
@@ -10697,6 +10698,8 @@ var $author$project$App$parseOpcode = function (word) {
 			return $elm$core$Maybe$Just($author$project$App$Dc);
 		case 'END':
 			return $elm$core$Maybe$Just($author$project$App$End);
+		case 'SKIP':
+			return $elm$core$Maybe$Just($author$project$App$Skip);
 		default:
 			return $elm$core$Maybe$Nothing;
 	}
@@ -10726,55 +10729,112 @@ var $elm$core$String$words = _String_words;
 var $author$project$App$parseLine = F2(
 	function (lineNumber, s) {
 		var _v0 = $elm$core$String$words(s);
-		_v0$4:
+		_v0$0:
 		while (true) {
-			if (_v0.b) {
-				if (_v0.b.b) {
-					if (_v0.b.b.b) {
-						if (!_v0.b.b.b.b) {
-							var label = _v0.a;
-							var _v1 = _v0.b;
-							var opcode = _v1.a;
-							var _v2 = _v1.b;
-							var loc = _v2.a;
-							return A4(
-								$author$project$App$parseLineData,
-								lineNumber,
-								$elm$core$Maybe$Just(label),
-								opcode,
-								loc);
-						} else {
-							break _v0$4;
+			_v0$1:
+			while (true) {
+				_v0$2:
+				while (true) {
+					_v0$5:
+					while (true) {
+						_v0$6:
+						while (true) {
+							_v0$8:
+							while (true) {
+								if (_v0.b) {
+									if (_v0.b.b) {
+										if (_v0.b.b.b) {
+											switch (_v0.a) {
+												case '#':
+													if (!_v0.b.b.b.b) {
+														break _v0$0;
+													} else {
+														break _v0$5;
+													}
+												case '':
+													if (!_v0.b.b.b.b) {
+														break _v0$0;
+													} else {
+														break _v0$6;
+													}
+												default:
+													if (!_v0.b.b.b.b) {
+														break _v0$0;
+													} else {
+														break _v0$8;
+													}
+											}
+										} else {
+											switch (_v0.a) {
+												case '#':
+													if (_v0.b.a === 'END') {
+														break _v0$1;
+													} else {
+														break _v0$2;
+													}
+												case '':
+													if (_v0.b.a === 'END') {
+														break _v0$1;
+													} else {
+														break _v0$2;
+													}
+												default:
+													if (_v0.b.a === 'END') {
+														break _v0$1;
+													} else {
+														break _v0$2;
+													}
+											}
+										}
+									} else {
+										switch (_v0.a) {
+											case 'END':
+												return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'END', '');
+											case 'SKIP':
+												return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
+											case '#':
+												break _v0$5;
+											case '':
+												break _v0$6;
+											default:
+												break _v0$8;
+										}
+									}
+								} else {
+									return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
+								}
+							}
+							return $elm$core$Maybe$Nothing;
 						}
-					} else {
-						if (_v0.b.a === 'END') {
-							var label = _v0.a;
-							var _v3 = _v0.b;
-							return A4(
-								$author$project$App$parseLineData,
-								lineNumber,
-								$elm$core$Maybe$Just(label),
-								'END',
-								'');
-						} else {
-							var opcode = _v0.a;
-							var _v4 = _v0.b;
-							var loc = _v4.a;
-							return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, opcode, loc);
-						}
+						return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
 					}
-				} else {
-					if (_v0.a === 'END') {
-						return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'END', '');
-					} else {
-						break _v0$4;
-					}
+					return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
 				}
-			} else {
-				break _v0$4;
+				var opcode = _v0.a;
+				var _v4 = _v0.b;
+				var loc = _v4.a;
+				return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, opcode, loc);
 			}
+			var label = _v0.a;
+			var _v3 = _v0.b;
+			return A4(
+				$author$project$App$parseLineData,
+				lineNumber,
+				$elm$core$Maybe$Just(label),
+				'END',
+				'');
 		}
-		return $elm$core$Maybe$Nothing;
+		var label = _v0.a;
+		var _v1 = _v0.b;
+		var opcode = _v1.a;
+		var _v2 = _v1.b;
+		var loc = _v2.a;
+		return A4(
+			$author$project$App$parseLineData,
+			lineNumber,
+			$elm$core$Maybe$Just(label),
+			opcode,
+			loc);
 	});
 var $author$project$App$parseProgram = function (program) {
 	var lines = $elm$core$String$lines(program);
@@ -10909,6 +10969,9 @@ var $author$project$App$executeLine = F2(
 		};
 		var _v0 = line.opcode;
 		switch (_v0.$) {
+			case 'Skip':
+				return $author$project$App$Success(
+					advance(machineStat));
 			case 'Load':
 				return A2(
 					bind,
@@ -11001,16 +11064,21 @@ var $author$project$App$executeLine = F2(
 						A3($author$project$App$setAtLocation, machineStat.memory, line.location, x));
 				}
 			case 'Print':
-				return $author$project$App$Success(
-					advance(
-						_Utils_update(
-							machineStat,
-							{
-								printed: _Utils_ap(
-									machineStat.printed,
-									_List_fromArray(
-										[machineStat.acc]))
-							})));
+				return A2(
+					bind,
+					function (v) {
+						return $author$project$App$Success(
+							advance(
+								_Utils_update(
+									machineStat,
+									{
+										printed: _Utils_ap(
+											machineStat.printed,
+											_List_fromArray(
+												[v]))
+									})));
+					},
+					getVal(line.opcode));
 			case 'Dc':
 				var _v7 = line.label;
 				if (_v7.$ === 'Nothing') {
