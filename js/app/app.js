@@ -10728,113 +10728,128 @@ var $author$project$App$parseLineData = F4(
 var $elm$core$String$words = _String_words;
 var $author$project$App$parseLine = F2(
 	function (lineNumber, s) {
-		var _v0 = $elm$core$String$words(s);
-		_v0$0:
-		while (true) {
-			_v0$1:
+		var skipCommand = A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
+		var parsePart = function (line) {
+			var _v1 = $elm$core$String$words(line);
+			_v1$0:
 			while (true) {
-				_v0$2:
+				_v1$1:
 				while (true) {
-					_v0$5:
+					_v1$2:
 					while (true) {
-						_v0$6:
+						_v1$5:
 						while (true) {
-							_v0$8:
+							_v1$6:
 							while (true) {
-								if (_v0.b) {
-									if (_v0.b.b) {
-										if (_v0.b.b.b) {
-											switch (_v0.a) {
-												case '#':
-													if (!_v0.b.b.b.b) {
-														break _v0$0;
-													} else {
-														break _v0$5;
-													}
-												case '':
-													if (!_v0.b.b.b.b) {
-														break _v0$0;
-													} else {
-														break _v0$6;
-													}
-												default:
-													if (!_v0.b.b.b.b) {
-														break _v0$0;
-													} else {
-														break _v0$8;
-													}
+								_v1$8:
+								while (true) {
+									if (_v1.b) {
+										if (_v1.b.b) {
+											if (_v1.b.b.b) {
+												switch (_v1.a) {
+													case '#':
+														if (!_v1.b.b.b.b) {
+															break _v1$0;
+														} else {
+															break _v1$5;
+														}
+													case '':
+														if (!_v1.b.b.b.b) {
+															break _v1$0;
+														} else {
+															break _v1$6;
+														}
+													default:
+														if (!_v1.b.b.b.b) {
+															break _v1$0;
+														} else {
+															break _v1$8;
+														}
+												}
+											} else {
+												switch (_v1.a) {
+													case '#':
+														if (_v1.b.a === 'END') {
+															break _v1$1;
+														} else {
+															break _v1$2;
+														}
+													case '':
+														if (_v1.b.a === 'END') {
+															break _v1$1;
+														} else {
+															break _v1$2;
+														}
+													default:
+														if (_v1.b.a === 'END') {
+															break _v1$1;
+														} else {
+															break _v1$2;
+														}
+												}
 											}
 										} else {
-											switch (_v0.a) {
+											switch (_v1.a) {
+												case 'END':
+													return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'END', '');
+												case 'SKIP':
+													return skipCommand;
 												case '#':
-													if (_v0.b.a === 'END') {
-														break _v0$1;
-													} else {
-														break _v0$2;
-													}
+													break _v1$5;
 												case '':
-													if (_v0.b.a === 'END') {
-														break _v0$1;
-													} else {
-														break _v0$2;
-													}
+													break _v1$6;
 												default:
-													if (_v0.b.a === 'END') {
-														break _v0$1;
-													} else {
-														break _v0$2;
-													}
+													break _v1$8;
 											}
 										}
 									} else {
-										switch (_v0.a) {
-											case 'END':
-												return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'END', '');
-											case 'SKIP':
-												return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
-											case '#':
-												break _v0$5;
-											case '':
-												break _v0$6;
-											default:
-												break _v0$8;
-										}
+										return skipCommand;
 									}
-								} else {
-									return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
 								}
+								return $elm$core$Maybe$Nothing;
 							}
-							return $elm$core$Maybe$Nothing;
+							return skipCommand;
 						}
-						return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
+						return skipCommand;
 					}
-					return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, 'SKIP', '');
+					var opcode = _v1.a;
+					var _v5 = _v1.b;
+					var loc = _v5.a;
+					return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, opcode, loc);
 				}
-				var opcode = _v0.a;
-				var _v4 = _v0.b;
-				var loc = _v4.a;
-				return A4($author$project$App$parseLineData, lineNumber, $elm$core$Maybe$Nothing, opcode, loc);
+				var label = _v1.a;
+				var _v4 = _v1.b;
+				return A4(
+					$author$project$App$parseLineData,
+					lineNumber,
+					$elm$core$Maybe$Just(label),
+					'END',
+					'');
 			}
-			var label = _v0.a;
-			var _v3 = _v0.b;
+			var label = _v1.a;
+			var _v2 = _v1.b;
+			var opcode = _v2.a;
+			var _v3 = _v2.b;
+			var loc = _v3.a;
 			return A4(
 				$author$project$App$parseLineData,
 				lineNumber,
 				$elm$core$Maybe$Just(label),
-				'END',
-				'');
+				opcode,
+				loc);
+		};
+		var _v0 = A2($elm$core$String$split, '#', s);
+		if (!_v0.b) {
+			return skipCommand;
+		} else {
+			if (_v0.a === '') {
+				return skipCommand;
+			} else {
+				var bef = _v0.a;
+				var rest = _v0.b;
+				return parsePart(bef);
+			}
 		}
-		var label = _v0.a;
-		var _v1 = _v0.b;
-		var opcode = _v1.a;
-		var _v2 = _v1.b;
-		var loc = _v2.a;
-		return A4(
-			$author$project$App$parseLineData,
-			lineNumber,
-			$elm$core$Maybe$Just(label),
-			opcode,
-			loc);
 	});
 var $author$project$App$parseProgram = function (program) {
 	var lines = $elm$core$String$lines(program);
